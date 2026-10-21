@@ -1,0 +1,31 @@
+services:
+  aosp10:
+    build:
+      context: .
+      args:
+        USER_ID: ${USER_ID:-1000}
+        GROUP_ID: ${GROUP_ID:-1000}
+    image: aosp10-builder:18.04
+    container_name: aosp10-build
+    hostname: ${BUILD_HOSTNAME:-ae-server}
+    working_dir: /src
+    stdin_open: true
+    tty: true
+    # SELinux Fedora: matikan label agar tidak perlu relabel seluruh tree source
+    security_opt:
+      - label=disable
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    environment:
+      USE_CCACHE: "1"
+      CCACHE_EXEC: /usr/bin/ccache
+      CCACHE_DIR: /ccache
+      BUILD_USERNAME: ${BUILD_USERNAME:-aepranata}
+      BUILD_HOSTNAME: ${BUILD_HOSTNAME:-ae-server}
+    volumes:
+      # out/ otomatis ada di ${SRC_DIR}/out karena berada di dalam tree source
+      - ${SRC_DIR:-${HOME}/aosp10}:/src
+      - ${CCACHE_DIR_HOST:-${HOME}/.ccache-aosp10}:/ccache
+    command: /bin/bash
