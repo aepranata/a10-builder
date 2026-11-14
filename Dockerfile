@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libncurses5 libncurses5-dev libx11-dev x11proto-core-dev libgl1-mesa-dev \
         libxml2-utils xsltproc fontconfig \
         libssl-dev libelf-dev bc rsync lzop schedtool squashfs-tools \
-        imagemagick pngcrush liblz4-tool lz4 xz-utils zstd \
+        imagemagick pngcrush liblz4-tool xz-utils zstd \
         python python3 python-pip python3-pip python-mako \
         openjdk-8-jdk-headless \
         ccache sudo vim nano less file procps openssh-client \
